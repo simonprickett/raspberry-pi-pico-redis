@@ -8,7 +8,7 @@ wlan.active(True)
 wlan.connect(secrets.WIFI_SSID, secrets.WIFI_PASSWORD)
 
 while not wlan.isconnected() and wlan.status() >= 0:
-    print("Waiting to connect...")
+    print("Connecting to wifi...")
     time.sleep(0.5)
 
 r = Redis(host="192.168.4.24", port=6379)
