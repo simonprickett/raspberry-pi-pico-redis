@@ -30,4 +30,6 @@ REDIS_PORT = 6379 (or whatever port you have Redis running on)
 REDIS_PASSWORD = "redis password here"
 ```
 
+The Redis client used in this project is in the file `picoredis.py`.  It is [PicoRedis](https://github.com/SpotlightKid/picoredis) by ][Christopher Arndt](https://chrisarndt.de/) and is MIT licensed.
+
 Watch the first video to see how to get the code up and running on the device, and how to create a Redis Stack instance in the cloud.
