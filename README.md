@@ -25,6 +25,8 @@ The code requires some secrets management... don't commit secrets (passwords etc
 ```python
 WIFI_SSID = "wifi network name here"
 WIFI_PASSWORD = "wifi password here"
+REDIS_HOST = "hostname.of.your.redis.server"
+REDIS_PORT = 6379 (or whatever port you have Redis running on)
 REDIS_PASSWORD = "redis password here"
 ```
 

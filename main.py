@@ -3,9 +3,6 @@ import secrets
 import time
 from picoredis import Redis
 
-REDIS_HOST = "redis-11565.c275.us-east-1-4.ec2.cloud.redislabs.com"
-REDIS_PORT = 11565
-
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 wlan.connect(secrets.WIFI_SSID, secrets.WIFI_PASSWORD)
@@ -17,7 +14,7 @@ while not wlan.isconnected() and wlan.status() >= 0:
 # Should have a network connection...
 
 # Connect to Redis...
-r = Redis(host = REDIS_HOST, port = REDIS_PORT)
+r = Redis(host = secrets.REDIS_HOST, port = secrets.REDIS_PORT)
 r.auth(secrets.REDIS_PASSWORD)
 
 n = 0
