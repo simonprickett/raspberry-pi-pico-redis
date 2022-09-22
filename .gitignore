@@ -5,3 +5,4 @@
 *.swp
 secrets.py
 .vscode/
+node_modules/
