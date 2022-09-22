@@ -1,0 +1,18 @@
+{
+  "name": "pico-project-stream-reader",
+  "version": "0.0.1",
+  "description": "Stream reader for Raspberry Pi Pico livestream project.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "Redis"
+  ],
+  "type": "module",
+  "author": "Redis Developer",
+  "license": "MIT",
+  "dependencies": {
+    "redis": "^4.3.1"
+  }
+}
