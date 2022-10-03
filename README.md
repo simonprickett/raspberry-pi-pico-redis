@@ -25,7 +25,7 @@ To use this repository you will need:
 
 ### MicroPython
 
-The MicroPython code requires some secrets management... don't commit secrets (passwords etc) to source control, instead create a file `secrets.py` in this folder... it should look like this:
+The MicroPython code requires some secrets management... don't commit secrets (passwords etc) to source control, instead create a file `secrets.py` in the `micropython` folder... it should look like this:
 
 ```python
 WIFI_SSID = "wifi network name here"
