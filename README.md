@@ -39,6 +39,8 @@ The Redis client used in this project is in the file `picoredis.py`.  It is [Pic
 
 Watch the first video to see how to get the code up and running on the device, and how to create a Redis Stack instance in the cloud.  In the second video, you'll learn how to add a temperature/humidity sensor to the device and send data from it to a Redis Stream.
 
+I'm using Seed Studio's [examples from their wiki](https://wiki.seeedstudio.com/Grove_Shield_for_Pi_Pico_V1.0/) for the code that talks to the various Grove sensors in their kit.
+
 ### Node.js
 
 The Node.js code also uses the same secrets, but gets their values from environment variables.  To set up and run the Node.js code, first export the environment variables, then install dependencies (this code uses the [Node-Redis](https://github.com/redis/node-redis) client) and finally start it:

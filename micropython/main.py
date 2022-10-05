@@ -25,9 +25,9 @@ while True:
     # Read the temperature and humidity data from the sensor...
     temperature, humidity = temp_humidity_sensor.readTempHumid()
 
-    # Send temperature and humidity data to a Redis stream... 
+    # Send sensor data to a Redis stream... 
     stream_id = r.xadd("picoproject:incoming", "*", "id", "1", "t", str(temperature), "h", str(humidity))
-    print(stream_id)
-    print(temperature)
-    print(humidity)
+    print(f"id: {stream_id}")
+    print(f"t: {temperature}")
+    print(f"h {humidity}")
     time.sleep(2)
