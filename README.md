@@ -8,7 +8,8 @@ This repository contains [MicroPython](https://micropython.org/) and [Node.js](h
 
 * [Episode 1](https://www.youtube.com/watch?v=8Q3jK5CAfNQ), introducing the Pi Pico, installing MicroPython, creating a Redis Stack instance in the cloud and sending data to it with Redis Streams.  Visualizing data with RedisInsight.
 * [Episode 2](https://www.youtube.com/watch?v=TQlsvxD6zRM), adding headers and a Grove shield to the Raspberry Pi Pico W, modifying the MicroPython code to read temperature and humidity values from a sensor and send them to Redis, reading those values from Redis using a Node.js application.
-* Episode 3 - scheduled for Thursday October 6th 2022... we'll add another sensor, see how to store some of the data long term using RedisJSON and access it in a flexible way with RediSearch.
+* [Episode 3](https://www.youtube.com/watch?v=0vw_vhouca8), added a light sensor, looked at how to modify the Node stream reading code so that it remembers where it was in the Stream when restarted and demonstrated how to use a Sorted Set to model 1:many relationships.  We ended by storing sensor data per room in JSON documents in Redis.
+* Episode 4 - scheduled for Thursday October 20th 2022... we'll look at aggregating some of the sensor readings, and adding a search schema so we can build an API that can answer queries such as "find me all the rooms where the temperature is 20C or higher".
 
 ## Getting Started
 
