@@ -64,6 +64,6 @@ To set up and run the Node.js code you'll first need to install the dependencies
 cd node
 npm install
 npm start
-``
-`
-The code connects to Redis, and reads data from the stream that the MicroPython code is writing to.  See the second video for more details.
+```
+
+The code connects to Redis, and reads data from the stream that the MicroPython code is writing to.  See the [second](https://www.youtube.com/watch?v=TQlsvxD6zRM) and [third](https://www.youtube.com/watch?v=0vw_vhouca8) videos for more details.
