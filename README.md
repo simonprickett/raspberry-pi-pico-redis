@@ -43,21 +43,26 @@ I'm using Seed Studio's [examples from their wiki](https://wiki.seeedstudio.com/
 
 ### Node.js
 
-The Node.js code also uses the same secrets, but gets their values from environment variables.  To set up and run the Node.js code, first export the environment variables, then install dependencies (this code uses the [Node-Redis](https://github.com/redis/node-redis) client) and finally start it:
+The Node.js code also uses the same secrets, but gets their values from a `.env` file  Create a file that looks like this and save it in the `node` folder as `.env`:
 
-```bash
-export REDIS_HOST=hostname.of.your.redis.server
-export REDIS_PORT=6379
-export REDIS_PASSWORD=your.redis.password
-cd node
-npm install
-npm start
+```
+REDIS_HOST = "hostname.of.your.redis.server"
+REDIS_PORT = 6379 (or whatever port you have Redis running on)
+REDIS_PASSWORD = "redis password here"
 ```
 
 Optionally, if you're using a user name and password to connect to Redis, you can also set:
 
-```bash
-export REDIS_USER=your.redis.user.name
+```
+REDIS_USER = "your.redis.user.name"
 ```
 
+To set up and run the Node.js code you'll first need to install the dependencies (this code uses the [Node-Redis](https://github.com/redis/node-redis) client and [dotenv](https://www.npmjs.com/package/dotenv) package) and finally start it:
+
+```bash
+cd node
+npm install
+npm start
+``
+`
 The code connects to Redis, and reads data from the stream that the MicroPython code is writing to.  See the second video for more details.
