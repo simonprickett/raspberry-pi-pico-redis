@@ -7,7 +7,9 @@ const REDIS_HOST = process.env.REDIS_HOST;
 const REDIS_PORT = process.env.REDIS_PORT;
 const REDIS_USER = process.env.REDIS_USER || 'default';
 const REDIS_PASSWORD = process.env.REDIS_PASSWORD;
-const LAST_ID_KEY = 'picoproject:consumer:last_id';
+
+const KEY_PREFIX = 'picoproject';
+const LAST_ID_KEY = `${KEY_PREFIX}:consumer:last_id`;
 
 const client = createClient({
   url: `redis://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}/`
@@ -30,7 +32,7 @@ while (true) {
         // XREAD can read from multiple streams, starting at a
         // different ID for each...
         {
-          key: 'picoproject:incoming',
+          key: `${KEY_PREFIX}:incoming`,
           id: currentId
         }
       ], {
@@ -54,13 +56,11 @@ while (true) {
       console.log(messageBody);
 
       // Figure out which room the sensor is in...
-      const roomId = await client.zScore('picoproject:sensor_room', sensorId);
+      const roomId = await client.zScore(`${KEY_PREFIX}:sensor_room`, sensorId);
       console.log(`Sensor ${sensorId} is in room ${roomId}.`);
 
       // Update the room's JSON document with new values.
-      const roomKey = `picoproject:room:${roomId}`;
-
-      await client.json.set(roomKey, '$.climate', {
+      await client.json.set(`${KEY_PREFIX}:room:${roomId}`, '$.climate', {
         temperature: messageBody.t,
         humidity: messageBody.h,
         light: messageBody.l
