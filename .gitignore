@@ -3,6 +3,7 @@
 *.bak
 *.log
 *.swp
+.env
 secrets.py
 .vscode/
 node_modules/
