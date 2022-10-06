@@ -1,10 +1,12 @@
 import { createClient, commandOptions } from 'redis';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const REDIS_HOST = process.env.REDIS_HOST;
 const REDIS_PORT = process.env.REDIS_PORT;
 const REDIS_USER = process.env.REDIS_USER || 'default';
 const REDIS_PASSWORD = process.env.REDIS_PASSWORD;
-
 const LAST_ID_KEY = 'picoproject:consumer:last_id';
 
 const client = createClient({
