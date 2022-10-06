@@ -39,12 +39,30 @@ while (true) {
     );
 
     if (response) {
-      console.log(JSON.stringify(response));
-
       // Get the ID of the first (only) entry returned.
       currentId = response[0].messages[0].id;
-      console.log(currentId);
+      console.log(`Stream ID is ${currentId}.`);
       client.set(LAST_ID_KEY, currentId);
+
+      // Get the sensor ID that sent this message...
+      const sensorId = response[0].messages[0].message.id;
+      console.log(`Message is from sensor ${sensorId}.`);
+
+      const messageBody = response[0].messages[0].message;
+      console.log(messageBody);
+
+      // Figure out which room the sensor is in...
+      const roomId = await client.zScore('picoproject:sensor_room', sensorId);
+      console.log(`Sensor ${sensorId} is in room ${roomId}.`);
+
+      // Update the room's JSON document with new values.
+      const roomKey = `picoproject:room:${roomId}`;
+
+      await client.json.set(roomKey, '$.climate', {
+        temperature: messageBody.t,
+        humidity: messageBody.h,
+        light: messageBody.l
+      });
     } else {
       // Response is null, we have read everything that is
       // in the stream right now...
