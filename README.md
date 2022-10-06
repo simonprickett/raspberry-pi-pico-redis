@@ -24,6 +24,10 @@ To use this repository you will need:
 * You can use the [Thonny IDE](https://thonny.org/) to edit the code and load it on the Pi Pico W, personally I prefer [VSCode](https://code.visualstudio.com/) with [this extension](https://marketplace.visualstudio.com/items?itemName=paulober.pico-w-go) to manage the Pico W.  This also allows you to use a single IDE to work with both the MicroPython and Node.js codebases.
 * If you want to use the exact sensor kit and Grove shield that I am using, you'll need the [Grove Starter Kit for Raspberry Pi Pico](https://www.seeedstudio.com/Grove-Starter-Kit-for-Raspberry-Pi-Pico-p-4851.html) from Seeed Studio.
 
+### Create the Initial Data Fixtures
+
+This project relies on some data setup tasks that need to be completed before running the Node.js code.  Follow the instructions in [create_initial_data_fixtures.md](create_initial_data_fixtures.md) before starting the code.
+
 ### MicroPython
 
 The MicroPython code requires some secrets management... don't commit secrets (passwords etc) to source control, instead create a file `secrets.py` in the `micropython` folder... it should look like this:
