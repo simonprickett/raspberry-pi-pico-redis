@@ -52,3 +52,73 @@ JSON.SET picoproject:room:228 $ '{"room": 228, "num_windows": 2, "description": 
 JSON.SET picoproject:room:229 $ '{"room": 229, "num_windows": 3, "description": "A full size corner suite with floor to ceiling windows, separate television room and ocean views.", "last_updated": 1666082200031, "climate": { "temperature": 23.6, "humidity": 60.2, "light": 40934}}'
 ```
 
+# Creating a Search Index
+
+We'll also want to search these documents, so let's setup a RediSearch index.  Run the following command in `redis-cli` or RedisInsight:
+
+```
+FT.CREATE idx:rooms ON JSON PREFIX 1 picoproject:room: SCHEMA $.room AS room NUMERIC SORTABLE $.num_windows AS num_windows NUMERIC SORTABLE $.description AS description TEXT $.last_updated AS last_updated NUMERIC SORTABLE $.climate.temperature AS temperature NUMERIC SORTABLE $.climate.humidity AS humidity NUMERIC SORTABLE $.climate.light AS light NUMERIC SORTABLE
+```
+
+Ensure that the index was created correctly by running a couple of sample queries using `redis-cli` or RedisInsight...
+
+Find all rooms where the temperature is between 20 and 23 degrees returning only the room numbers and temperature, in descending order of temperature:
+
+```
+FT.SEARCH idx:rooms "@temperature:[20 23]" RETURN 2 room temperature SORTBY temperature DESC
+```
+
+Redis should return:
+
+```
+1) "6"
+2) "picoproject:room:226"
+3) 1) "temperature"
+   2) "22.7"
+   3) "room"
+   4) "226"
+4) "picoproject:room:225"
+5) 1) "temperature"
+   2) "22.5"
+   3) "room"
+   4) "225"
+6) "picoproject:room:218"
+7) 1) "temperature"
+   2) "22.1"
+   3) "room"
+   4) "218"
+8) "picoproject:room:219"
+9) 1) "temperature"
+   2) "21.7"
+   3) "room"
+   4) "219"
+10) "picoproject:room:224"
+11) 1) "temperature"
+   2) "21.3"
+   3) "room"
+   4) "224"
+12) "picoproject:room:221"
+13) 1) "temperature"
+   2) "20.1"
+   3) "room"
+   4) "221"
+```
+
+Find the room with the highest humidity level and return the room number, humidity and description:
+
+```
+FT.SEARCH idx:rooms "*" SORTBY humidity DESC LIMIT 0 1 RETURN 3 room humidity description
+```
+
+Redis should return:
+
+```
+1) "18"
+2) "picoproject:room:227"
+3) 1) "humidity"
+   2) "70.2"
+   3) "room"
+   4) "227"
+   5) "description"
+   6) "Double room overlooking the courtyard."
+```
