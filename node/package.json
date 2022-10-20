@@ -4,7 +4,8 @@
   "description": "Stream reader for Raspberry Pi Pico livestream project.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "consumer": "node consumer.js",
+    "trimmer": "node trim.js"
   },
   "keywords": [
     "Redis"

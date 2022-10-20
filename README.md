@@ -9,7 +9,8 @@ This repository contains [MicroPython](https://micropython.org/) and [Node.js](h
 * [Episode 1](https://www.youtube.com/watch?v=8Q3jK5CAfNQ), introducing the Pi Pico, installing MicroPython, creating a Redis Stack instance in the cloud and sending data to it with Redis Streams.  Visualizing data with RedisInsight.
 * [Episode 2](https://www.youtube.com/watch?v=TQlsvxD6zRM), adding headers and a Grove shield to the Raspberry Pi Pico W, modifying the MicroPython code to read temperature and humidity values from a sensor and send them to Redis, reading those values from Redis using a Node.js application.
 * [Episode 3](https://www.youtube.com/watch?v=0vw_vhouca8), added a light sensor, looked at how to modify the Node stream reading code so that it remembers where it was in the Stream when restarted and demonstrated how to use a Sorted Set to model 1:many relationships.  We ended by storing sensor data per room in JSON documents in Redis.
-* Episode 4 - scheduled for Thursday October 20th 2022... we'll look at aggregating some of the sensor readings, and adding a search schema so we can build an API that can answer queries such as "find me all the rooms where the temperature is 20C or higher".
+* [Episode 4](https://www.youtube.com/watch?v=MuaJzyUHmx0), dealt with the issue of trimming the incoming data Stream, added last modified timestamps and sorted out some data type mismatches then added a RediSearch index and demonstrated some queries over the data stored in JSON documents.
+* Episode 5 - scheduled for Thursday October 27th 2022... we'll look at using some of the data to display room temperature to the user and control a fan remotely.  This will be the final episode for this project.
 
 ## Getting Started
 
@@ -62,12 +63,22 @@ Optionally, if you're using a user name and password to connect to Redis, you ca
 REDIS_USER = "your.redis.user.name"
 ```
 
-To set up and run the Node.js code you'll first need to install the dependencies (this code uses the [Node-Redis](https://github.com/redis/node-redis) client and [dotenv](https://www.npmjs.com/package/dotenv) package) and finally start it:
+To set up and run the Node.js Stream consumer code you'll first need to install the dependencies (this code uses the [Node-Redis](https://github.com/redis/node-redis) client and [dotenv](https://www.npmjs.com/package/dotenv) package) and finally start it:
 
 ```bash
 cd node
 npm install
-npm start
+npm run consumer
 ```
 
 The code connects to Redis, and reads data from the stream that the MicroPython code is writing to.  See the [second](https://www.youtube.com/watch?v=TQlsvxD6zRM) and [third](https://www.youtube.com/watch?v=0vw_vhouca8) videos for more details.
+
+To trim the Stream periodically, deleting entries that are more than an hour old, run the trimmer component like this:
+
+```bash
+cd node
+npm install
+npm run trimmer
+```
+
+The code connects to Redis, and uses the `XTRIM` command to remove stream entries that are over an hour old.  Note that to do this is uses the `MINID` trimming strategy which became available in Redis 6.2. See the [fourth](https://www.youtube.com/watch?v=MuaJzyUHmx0) video for more details.

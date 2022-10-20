@@ -1,3 +1,3 @@
-# Stream Consumer for Raspberry Pi Pico W Project
+# Stream Consumer and Trimmer for Raspberry Pi Pico W Project
 
-TODO - document this!
+TODO - document these!

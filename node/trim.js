@@ -19,7 +19,8 @@ await client.connect();
 // Work out the millisecond timestamp from an hour ago...
 const oneHourAgo = Date.now() - (60 * 60 * 1000);
 
-// Call XTRIM
+// Call XTRIM using the MINID strategy (Redis 6.2 or newer required).
+// https://redis.io/commands/xtrim/
 const entriesDeleted = await client.xTrim(`${KEY_PREFIX}:incoming`, 'MINID', oneHourAgo);
 console.log(`Deleted ${entriesDeleted} entries from the stream.`);
 
