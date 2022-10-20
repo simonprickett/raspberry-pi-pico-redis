@@ -61,9 +61,9 @@ while (true) {
 
       // Update the room's JSON document with new values.
       await client.json.set(`${KEY_PREFIX}:room:${roomId}`, '$.climate', {
-        temperature: messageBody.t,
-        humidity: messageBody.h,
-        light: messageBody.l
+        temperature: parseFloat(messageBody.t),
+        humidity: parseFloat(messageBody.h),
+        light: parseInt(messageBody.l)
       });
     } else {
       // Response is null, we have read everything that is
