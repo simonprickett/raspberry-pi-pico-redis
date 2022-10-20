@@ -65,6 +65,9 @@ while (true) {
         humidity: parseFloat(messageBody.h),
         light: parseInt(messageBody.l)
       });
+
+      await client.json.set(`${KEY_PREFIX}:room:${roomId}`, '$.last_updated', 
+        parseInt(currentId.substring(0, currentId.indexOf('-'))));
     } else {
       // Response is null, we have read everything that is
       // in the stream right now...
