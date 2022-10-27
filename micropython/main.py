@@ -38,4 +38,4 @@ while True:
     print(f"t: {temperature}")
     print(f"h: {humidity}")
     print(f"l: {light}")
-    time.sleep(2)
+    time.sleep(4)
