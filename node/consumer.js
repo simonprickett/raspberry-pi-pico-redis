@@ -66,6 +66,15 @@ while (true) {
       if (temperature > 25.0) {
         const newOverTempCount = await client.json.numIncrBy(roomKey, '$.over_temp_count', 1);
         console.log(`over_temp_count is now ${newOverTempCount}`);
+
+        if (newOverTempCount === 10) {
+          await client.json.set(roomKey, '$.over_temp_count', 0);
+          console.log('over_temp_count reset to 0');
+        }
+      } else {
+        // Temperature went below the trigger point, so reset the counter.
+        await client.json.set(roomKey, '$.over_temp_count', 0);
+        console.log('over_temp_count reset to 0');
       }
 
       // Update the room's JSON document with new values.
