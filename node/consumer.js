@@ -74,7 +74,7 @@ while (true) {
 
           // Tell the thermostat what temperature to display and to turn on the 
           // fan for a period of time.
-          await client.lPush(`${KEY_PREFIX}:themostats:${roomId}`, `{"t":${temperature},"f":3}`);
+          await client.lPush(`${KEY_PREFIX}:themostat:${roomId}`, `{"t":${temperature},"f":3}`);
         }
       } else {
         // Temperature went below the trigger point, so reset the counter.
