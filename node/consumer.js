@@ -67,9 +67,14 @@ while (true) {
         const newOverTempCount = await client.json.numIncrBy(roomKey, '$.over_temp_count', 1);
         console.log(`over_temp_count is now ${newOverTempCount}`);
 
-        if (newOverTempCount === 10) {
+        if (newOverTempCount >= 10) {
+          // Reset the over temperature count.
           await client.json.set(roomKey, '$.over_temp_count', 0);
           console.log('over_temp_count reset to 0');
+
+          // Tell the thermostat what temperature to display and to turn on the 
+          // fan for a period of time.
+          await client.lPush(`${KEY_PREFIX}:themostats:${roomId}`, `{"t":${temperature},"f":3}`);
         }
       } else {
         // Temperature went below the trigger point, so reset the counter.
