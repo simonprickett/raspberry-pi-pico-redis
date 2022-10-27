@@ -59,15 +59,26 @@ while (true) {
       const roomId = await client.zScore(`${KEY_PREFIX}:sensor_room`, sensorId);
       console.log(`Sensor ${sensorId} is in room ${roomId}.`);
 
+      const temperature = parseFloat(messageBody.t);
+      const roomKey = `${KEY_PREFIX}:room:${roomId}`;
+
+      // See if we are "over temperature" and if so increment the "over_temp_count"...
+      if (temperature > 25.0) {
+        const newOverTempCount = await client.json.numIncrBy(roomKey, '$.over_temp_count', 1);
+        console.log(`over_temp_count is now ${newOverTempCount}`);
+      }
+
       // Update the room's JSON document with new values.
-      await client.json.set(`${KEY_PREFIX}:room:${roomId}`, '$.climate', {
-        temperature: parseFloat(messageBody.t),
+      await client.json.set(roomKey, '$.climate', {
+        temperature,
         humidity: parseFloat(messageBody.h),
         light: parseInt(messageBody.l)
       });
 
-      await client.json.set(`${KEY_PREFIX}:room:${roomId}`, '$.last_updated', 
+      // Update the last update date.
+      await client.json.set(roomKey, '$.last_updated', 
         parseInt(currentId.substring(0, currentId.indexOf('-'))));
+
     } else {
       // Response is null, we have read everything that is
       // in the stream right now...
