@@ -21,7 +21,7 @@ To use this repository you will need:
 * Your wifi credentials (SSID and password).
 * [MicroPython runtime for Pico W](https://www.raspberrypi.com/documentation/microcontrollers/micropython.html) (install this on the Pico W using the drag and drop method).
 * [Node.js](https://nodejs.org/en/download/).
-* [A cloud Redis Stack instance](https://redis.com/try-free/) (free).  Alternatively, you'll need to be able to run Redis Stack somewhere on your local network that both your development machine and a Raspberry Pi Pico W can reach it via an IPv4 address or hostname.  It's easiest to just to this with Redis Cloud :)
+* [A cloud Redis Stack instance](https://redis.com/try-free/) (free).  Alternatively, you'll need to be able to run Redis Stack somewhere on your local network that both your development machine and a Raspberry Pi Pico W can reach it via an IPv4 address or hostname.  It's easiest to just do this with Redis Cloud :)
 * The code in this repository.
 * You can use the [Thonny IDE](https://thonny.org/) to edit the code and load it on the Pi Pico W, personally I prefer [VSCode](https://code.visualstudio.com/) with [this extension](https://marketplace.visualstudio.com/items?itemName=paulober.pico-w-go) to manage the Pico W.  This also allows you to use a single IDE to work with both the MicroPython and Node.js codebases.
 * If you want to use the exact sensor kit and Grove shield that I am using, you'll need the [Grove Starter Kit for Raspberry Pi Pico](https://www.seeedstudio.com/Grove-Starter-Kit-for-Raspberry-Pi-Pico-p-4851.html) from Seeed Studio.  This project uses two Grove shields, one for each Raspberry Pi Pico W device.
